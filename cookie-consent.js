@@ -1,58 +1,64 @@
 /**
  * Ultimate GDPR Cookie Consent Solution v5.0 - Premium Edition
- * - Multiple design options
- * - Complete positioning and sizing controls
- * - Dark/light mode with auto-detection
- * - Advanced animation controls
- * - Granular cookie controls
- * - Enhanced analytics dashboard
- * - Automatic translation based on user's country
- * - Domain restriction controls
- * - Geo-targeting (country/city/state level controls)
- * - Complete EU language support
- * - Built-in analytics dashboard with password protection
- * - Consent Mode v2 and future-proof compliance
+ * - Now with dual design options, advanced customization, and enhanced controls
+ * - All features configurable through a centralized configuration object
  */
 
 // ============== CONFIGURATION SECTION ============== //
 const config = {
     // General Settings
-    enabled: true, // Master switch for the whole solution
+    bannerDesign: 'default', // 'default' or 'modern'
+    bannerPosition: 'right', // 'left', 'right', or 'center'
+    bannerDelay: 0, // Seconds to delay banner appearance (0 for immediate)
     
-    // UI Theme Selection (design1, design2)
-    uiTheme: 'design1',
+    // Domain restriction - only show on these domains (empty array = all domains)
+    allowedDomains: ['dev-rpractice.pantheonsite.io', 'yourdomain.com'],
     
-    // Banner Position (left, right, center)
-    bannerPosition: 'right',
+    // UI Controls
+    showWebsiteLogo: true, // Automatically detect and show website logo
+    logoUrl: '', // Custom logo URL (overrides automatic detection)
+    darkMode: 'auto', // 'auto', 'light', or 'dark'
     
-    // Banner Dimensions (width in px, height auto-adjusts)
-    bannerWidth: 440,
-    
-    // Floating Elements Configuration
-    floatingElements: {
-        // Consent Button
-        consentButton: {
-            enabled: true,
-            position: 'right', // left or right
-            icon: 'default', // default, cookie, shield, gear
-            color: '#2ecc71',
-            hoverColor: '#27ae60'
-        },
-        
-        // Analytics Admin Button
-        adminButton: {
-            enabled: true,
-            position: 'right', // left or right
-            icon: 'default', // default, chart, analytics, stats
-            color: '#3498db',
-            hoverColor: '#2980b9',
-            verticalOffset: 80 // px from consent button
-        }
+    // Floating Button Controls
+    floatingButton: {
+        enabled: true,
+        position: 'right', // 'left' or 'right'
+        icon: 'default', // 'default' or 'modern'
+        animation: true,
+        hoverEffect: true
     },
     
-    // Color Scheme Configuration
+    // Admin Button Controls
+    adminButton: {
+        enabled: true,
+        position: 'right', // 'left' or 'right'
+        icon: 'default', // 'default' or 'modern'
+        animation: true,
+        hoverEffect: true
+    },
+    
+    // Banner Size Controls (in pixels)
+    bannerSize: {
+        width: 440,
+        minWidth: 300,
+        maxWidth: 600,
+        height: 'auto', // 'auto' or specific px value
+        borderRadius: 12,
+        borderWidth: 0,
+        borderColor: '#e0e0e0'
+    },
+    
+    // Animation Controls
+    animations: {
+        enabled: true,
+        entrance: 'fadeInUp', // 'fadeIn', 'fadeInUp', 'slideUp', 'slideRight'
+        exit: 'fadeOutDown', // 'fadeOut', 'fadeOutDown', 'slideDown', 'slideLeft'
+        duration: 400, // ms
+        easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)'
+    },
+    
+    // Color Schemes
     colors: {
-        // Light Mode Colors
         light: {
             primary: '#2ecc71',      // Green (accept button color)
             secondary: '#3498db',    // Blue (save button color)
@@ -62,13 +68,16 @@ const config = {
             background: '#ffffff',   // White background
             toggleActive: '#2ecc71', // Same as primary
             toggleInactive: '#bdc3c7',// Gray for inactive
-            bannerBorder: 'none',    // Border style for banner
-            bannerRadius: '12px',    // Border radius for banner
-            buttonRadius: '8px',      // Border radius for buttons
-            buttonOutline: 'none'    // Button outline style
+            bannerBg: '#ffffff',
+            bannerBorder: '#e0e0e0',
+            buttonText: '#ffffff',
+            buttonHover: {
+                accept: '#27ae60',
+                reject: '#c0392b',
+                save: '#2980b9',
+                adjust: '#f0f2f5'
+            }
         },
-        
-        // Dark Mode Colors
         dark: {
             primary: '#27ae60',
             secondary: '#2980b9',
@@ -78,43 +87,26 @@ const config = {
             background: '#2c3e50',
             toggleActive: '#27ae60',
             toggleInactive: '#7f8c8d',
-            bannerBorder: '1px solid #34495e',
-            bannerRadius: '12px',
-            buttonRadius: '8px',
-            buttonOutline: 'none'
+            bannerBg: '#34495e',
+            bannerBorder: '#2c3e50',
+            buttonText: '#ffffff',
+            buttonHover: {
+                accept: '#219955',
+                reject: '#ab3326',
+                save: '#2472a4',
+                adjust: '#3d566e'
+            }
         }
     },
     
-    // Dark Mode Settings
-    darkMode: {
-        enabled: true, // Enable dark mode functionality
-        autoDetect: true, // Auto-detect user's preferred color scheme
-        defaultMode: 'light' // Default mode if autoDetect is off
+    // Button Styles
+    buttons: {
+        borderRadius: 8,
+        borderWidth: 1,
+        padding: '12px 20px',
+        hoverEffect: true,
+        shadow: true
     },
-    
-    // Animation Settings
-    animations: {
-        enabled: true,
-        bannerEntrance: 'slideUp', // slideUp, fadeIn, bounce
-        bannerExit: 'slideDown',  // slideDown, fadeOut
-        modalEntrance: 'fadeIn',  // fadeIn, slideUp, zoomIn
-        modalExit: 'fadeOut',     // fadeOut, slideDown, zoomOut
-        duration: 0.4, // seconds
-        easing: 'cubic-bezier(0.25, 0.8, 0.25, 1)',
-        hoverIntensity: 'medium' // low, medium, high
-    },
-    
-    // Logo Settings
-    logo: {
-        enabled: true,
-        url: 'auto', // 'auto' to detect, or URL
-        width: '40px',
-        height: '40px',
-        position: 'left' // left or right
-    },
-    
-    // Domain restriction - only show on these domains (empty array = all domains)
-    allowedDomains: ['dev-rpractice.pantheonsite.io', 'practicebdhere.myshopify.com'],
     
     // Language configuration
     languageConfig: {
@@ -153,15 +145,9 @@ const config = {
         passwordProtect: true, // Enable password protection
         dashboardPassword: 'admin123', // Default password (should be changed per site)
         passwordCookieDuration: 365, // Days to remember password
-        exportEnabled: true, // Enable data export
-        detailedHistory: true // Keep detailed consent change history
-    },
-    
-    // Cookie Controls
-    cookieControls: {
-        showIndividualCookies: true, // Show individual cookie toggles
-        uncategorizedEnabled: true, // Allow control of uncategorized cookies
-        essentialLocked: true // Essential cookies can't be disabled
+        individualCookies: true, // Show individual cookie toggles
+        consentHistory: true, // Track consent changes
+        exportEnabled: true // Allow data export
     },
     
     // Banner behavior
@@ -170,7 +156,7 @@ const config = {
         rememberLanguage: true, // Remember user's language preference
         acceptOnScroll: false, // Accept cookies when user scrolls
         acceptOnContinue: true, // Implicit consent when continuing to browse
-        darkModeToggle: true // Show dark mode toggle in banner
+        showCloseButton: true // Show close button on banner
     }
 };
 
@@ -256,32 +242,24 @@ const translations = {
         passwordSubmit: "Submit",
         passwordIncorrect: "Incorrect password",
         dashboardTitle: "Consent Analytics Dashboard",
-        darkMode: "Dark Mode",
-        lightMode: "Light Mode",
+        cookieDetails: "Cookie Details",
+        toggleDetails: "+",
         individualCookies: "Individual Cookies",
-        cookieName: "Cookie Name",
-        cookiePurpose: "Purpose",
-        cookieDuration: "Duration",
         exportData: "Export Data",
-        exportCSV: "Export as CSV",
-        exportJSON: "Export as JSON",
-        consentHistory: "Consent History",
-        timestamp: "Timestamp",
-        consentStatus: "Status",
-        userAgent: "User Agent",
-        viewDetails: "View Details",
-        close: "Close"
+        close: "Close",
+        darkMode: "Dark Mode",
+        lightMode: "Light Mode"
     },
     // ... (keep all other language translations the same as before)
-    // Just make sure to add the new translation keys to all languages
+    // Note: Add translations for new strings in all languages
 };
 
 // Country to language mapping for auto-translation
 const countryLanguageMap = {
-    // ... (keep same as before)
+    // ... (keep existing country to language mapping)
 };
 
-// Analytics data storage
+// Analytics data storage with consent history
 let consentAnalytics = {
     total: {
         accepted: 0,
@@ -291,14 +269,92 @@ let consentAnalytics = {
     daily: {},
     weekly: {},
     monthly: {},
-    history: [] // For detailed consent history
+    history: [] // Track all consent changes
 };
 
 // Password protection for analytics
 let isDashboardAuthenticated = false;
-let currentColorScheme = config.darkMode.autoDetect ? 
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : 
-    config.darkMode.defaultMode;
+
+// Current color scheme based on dark mode
+let currentColorScheme = config.colors.light;
+
+// Detect preferred color scheme
+function detectColorScheme() {
+    if (config.darkMode === 'auto') {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            currentColorScheme = config.colors.dark;
+        } else {
+            currentColorScheme = config.colors.light;
+        }
+    } else if (config.darkMode === 'dark') {
+        currentColorScheme = config.colors.dark;
+    } else {
+        currentColorScheme = config.colors.light;
+    }
+}
+
+// Toggle dark mode
+function toggleDarkMode() {
+    if (currentColorScheme === config.colors.light) {
+        currentColorScheme = config.colors.dark;
+        setCookie('color_scheme', 'dark', 365);
+    } else {
+        currentColorScheme = config.colors.light;
+        setCookie('color_scheme', 'light', 365);
+    }
+    applyColorScheme();
+}
+
+// Apply current color scheme to UI
+function applyColorScheme() {
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    if (darkModeToggle) {
+        darkModeToggle.textContent = currentColorScheme === config.colors.dark ? 
+            translations[lang].lightMode : translations[lang].darkMode;
+    }
+    
+    // Update banner and modal styles
+    updateUITheme();
+}
+
+// Update UI elements with current theme
+function updateUITheme() {
+    const banner = document.getElementById('cookieConsentBanner');
+    const modal = document.getElementById('cookieSettingsModal');
+    const analyticsModal = document.getElementById('cookieAnalyticsModal');
+    
+    if (banner) {
+        banner.style.backgroundColor = currentColorScheme.bannerBg;
+        banner.style.color = currentColorScheme.textDark;
+        banner.style.borderColor = currentColorScheme.bannerBorder;
+    }
+    
+    if (modal) {
+        modal.querySelector('.cookie-settings-content').style.backgroundColor = currentColorScheme.background;
+        modal.querySelector('.cookie-settings-header').style.backgroundColor = currentColorScheme.bannerBg;
+        modal.querySelector('.cookie-settings-header h2').style.color = currentColorScheme.textDark;
+    }
+    
+    if (analyticsModal) {
+        analyticsModal.querySelector('.cookie-analytics-content').style.backgroundColor = currentColorScheme.background;
+        analyticsModal.querySelector('.cookie-analytics-header').style.backgroundColor = currentColorScheme.bannerBg;
+        analyticsModal.querySelector('.cookie-analytics-header h2').style.color = currentColorScheme.textDark;
+    }
+    
+    // Update button colors
+    document.querySelectorAll('.cookie-btn').forEach(btn => {
+        if (btn.classList.contains('accept-btn')) {
+            btn.style.backgroundColor = currentColorScheme.primary;
+            btn.style.color = currentColorScheme.buttonText;
+        } else if (btn.classList.contains('reject-btn')) {
+            btn.style.backgroundColor = currentColorScheme.danger;
+            btn.style.color = currentColorScheme.buttonText;
+        } else if (btn.classList.contains('save-btn')) {
+            btn.style.backgroundColor = currentColorScheme.secondary;
+            btn.style.color = currentColorScheme.buttonText;
+        }
+    });
+}
 
 // Load analytics data from localStorage
 function loadAnalyticsData() {
@@ -323,6 +379,14 @@ function loadAnalyticsData() {
     } else {
         isDashboardAuthenticated = true;
     }
+    
+    // Load color scheme preference
+    const savedColorScheme = getCookie('color_scheme');
+    if (savedColorScheme === 'dark') {
+        currentColorScheme = config.colors.dark;
+    } else if (savedColorScheme === 'light') {
+        currentColorScheme = config.colors.light;
+    }
 }
 
 // Save analytics data to localStorage
@@ -330,10 +394,9 @@ function saveAnalyticsData() {
     localStorage.setItem('consentAnalytics', JSON.stringify(consentAnalytics));
 }
 
-// Update analytics data
-function updateConsentStats(status, details = {}) {
+// Update analytics data with consent history
+function updateConsentStats(status, previousConsent = null) {
     const today = new Date().toISOString().split('T')[0];
-    const timestamp = new Date().toISOString();
     
     // Update totals
     if (status === 'accepted') {
@@ -347,19 +410,19 @@ function updateConsentStats(status, details = {}) {
         consentAnalytics.daily[today].custom++;
     }
     
-    // Add to history if enabled
-    if (config.analytics.detailedHistory) {
+    // Add to history
+    if (config.analytics.consentHistory) {
         consentAnalytics.history.push({
-            timestamp,
-            status,
-            categories: details.categories || {},
+            timestamp: new Date().toISOString(),
+            status: status,
+            previousConsent: previousConsent,
             userAgent: navigator.userAgent,
-            language: navigator.language,
-            referrer: document.referrer
+            ip: '', // Would be filled server-side
+            page: window.location.href
         });
         
-        // Keep history size manageable
-        if (consentAnalytics.history.length > 1000) {
+        // Keep only last 100 history items
+        if (consentAnalytics.history.length > 100) {
             consentAnalytics.history.shift();
         }
     }
@@ -370,493 +433,234 @@ function updateConsentStats(status, details = {}) {
     saveAnalyticsData();
 }
 
-// ... (keep all other existing functions like updateTimeBasedStats, getWeekNumber, etc.)
-
-// Generate analytics dashboard HTML with enhanced features
-function generateAnalyticsDashboard(language = 'en') {
+// Generate consent history table for dashboard
+function generateConsentHistory(language = 'en') {
     const lang = translations[language] || translations.en;
     
-    // Calculate totals
-    const total = consentAnalytics.total.accepted + 
-                 consentAnalytics.total.rejected + 
-                 consentAnalytics.total.custom;
-    
-    const acceptedPercent = total > 0 ? Math.round((consentAnalytics.total.accepted / total) * 100) : 0;
-    const rejectedPercent = total > 0 ? Math.round((consentAnalytics.total.rejected / total) * 100) : 0;
-    const customPercent = total > 0 ? Math.round((consentAnalytics.total.custom / total) * 100) : 0;
-    
-    // Get last 7 days data
-    const last7Days = {};
-    const dates = Object.keys(consentAnalytics.daily).sort().reverse().slice(0, 7);
-    dates.forEach(date => {
-        last7Days[date] = consentAnalytics.daily[date];
-    });
-    
-    // Get last 30 days data
-    const last30Days = {};
-    const monthlyDates = Object.keys(consentAnalytics.daily).sort().reverse().slice(0, 30);
-    monthlyDates.forEach(date => {
-        last30Days[date] = consentAnalytics.daily[date];
-    });
-    
-    // Generate history table if enabled
-    const historyTable = config.analytics.detailedHistory ? `
-    <div class="time-stat">
-        <h4>${lang.consentHistory}</h4>
+    return `
+    <div class="consent-history">
+        <h4>Consent Change History</h4>
         <div class="history-table-container">
             <table class="history-table">
                 <thead>
                     <tr>
-                        <th>${lang.timestamp}</th>
-                        <th>${lang.consentStatus}</th>
-                        <th>${lang.language}</th>
-                        <th>${lang.viewDetails}</th>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                        <th>Previous Consent</th>
+                        <th>Page</th>
                     </tr>
                 </thead>
                 <tbody>
-                    ${consentAnalytics.history.slice(0, 10).map(entry => `
+                    ${consentAnalytics.history.slice().reverse().map(item => `
                     <tr>
-                        <td>${new Date(entry.timestamp).toLocaleString()}</td>
-                        <td>${entry.status}</td>
-                        <td>${entry.language}</td>
-                        <td><button class="view-details-btn" data-timestamp="${entry.timestamp}">${lang.viewDetails}</button></td>
-                    </tr>`).join('')}
+                        <td>${new Date(item.timestamp).toLocaleString()}</td>
+                        <td class="history-status ${item.status}">${item.status}</td>
+                        <td>${item.previousConsent ? JSON.stringify(item.previousConsent.categories) : 'N/A'}</td>
+                        <td><a href="${item.page}" target="_blank">View Page</a></td>
+                    </tr>
+                    `).join('')}
                 </tbody>
             </table>
-        </div>
-    </div>` : '';
-    
-    // Export buttons if enabled
-    const exportButtons = config.analytics.exportEnabled ? `
-    <div class="export-buttons">
-        <button id="exportCSV" class="export-btn">${lang.exportCSV}</button>
-        <button id="exportJSON" class="export-btn">${lang.exportJSON}</button>
-    </div>` : '';
-    
-    return `
-    <div class="analytics-dashboard">
-        <h3>${lang.dashboardTitle}</h3>
-        
-        ${exportButtons}
-        
-        <div class="stats-summary">
-            <div class="stat-card accepted">
-                <h4>${lang.statsAccepted}</h4>
-                <div class="stat-value">${consentAnalytics.total.accepted}</div>
-                <div class="stat-percentage">${acceptedPercent}%</div>
-            </div>
-            
-            <div class="stat-card rejected">
-                <h4>${lang.statsRejected}</h4>
-                <div class="stat-value">${consentAnalytics.total.rejected}</div>
-                <div class="stat-percentage">${rejectedPercent}%</div>
-            </div>
-            
-            <div class="stat-card custom">
-                <h4>${lang.statsCustom}</h4>
-                <div class="stat-value">${consentAnalytics.total.custom}</div>
-                <div class="stat-percentage">${customPercent}%</div>
-            </div>
-            
-            <div class="stat-card total">
-                <h4>${lang.statsTotal}</h4>
-                <div class="stat-value">${total}</div>
-                <div class="stat-percentage">100%</div>
-            </div>
-        </div>
-        
-        <div class="time-based-stats">
-            <div class="time-stat">
-                <h4>${lang.statsLast7Days}</h4>
-                <div class="stat-bars">
-                    ${Object.entries(last7Days).map(([date, data]) => {
-                        const dayTotal = data.accepted + data.rejected + data.custom;
-                        const dayAcceptedPercent = dayTotal > 0 ? (data.accepted / dayTotal) * 100 : 0;
-                        const dayRejectedPercent = dayTotal > 0 ? (data.rejected / dayTotal) * 100 : 0;
-                        const dayCustomPercent = dayTotal > 0 ? (data.custom / dayTotal) * 100 : 0;
-                        
-                        return `
-                        <div class="stat-bar-container">
-                            <div class="stat-bar-label">${date}</div>
-                            <div class="stat-bar">
-                                <div class="stat-bar-segment accepted" style="width: ${dayAcceptedPercent}%"></div>
-                                <div class="stat-bar-segment custom" style="width: ${dayCustomPercent}%"></div>
-                                <div class="stat-bar-segment rejected" style="width: ${dayRejectedPercent}%"></div>
-                            </div>
-                            <div class="stat-bar-legend">
-                                <span>${data.accepted} ${lang.statsAccepted}</span>
-                                <span>${data.custom} ${lang.statsCustom}</span>
-                                <span>${data.rejected} ${lang.statsRejected}</span>
-                            </div>
-                        </div>`;
-                    }).join('')}
-                </div>
-            </div>
-            
-            <div class="time-stat">
-                <h4>${lang.statsLast30Days}</h4>
-                <div class="stat-bars">
-                    ${Object.entries(last30Days).map(([date, data]) => {
-                        const dayTotal = data.accepted + data.rejected + data.custom;
-                        const dayAcceptedPercent = dayTotal > 0 ? (data.accepted / dayTotal) * 100 : 0;
-                        const dayRejectedPercent = dayTotal > 0 ? (data.rejected / dayTotal) * 100 : 0;
-                        const dayCustomPercent = dayTotal > 0 ? (data.custom / dayTotal) * 100 : 0;
-                        
-                        return `
-                        <div class="stat-bar-container">
-                            <div class="stat-bar-label">${date}</div>
-                            <div class="stat-bar">
-                                <div class="stat-bar-segment accepted" style="width: ${dayAcceptedPercent}%"></div>
-                                <div class="stat-bar-segment custom" style="width: ${dayCustomPercent}%"></div>
-                                <div class="stat-bar-segment rejected" style="width: ${dayRejectedPercent}%"></div>
-                            </div>
-                            <div class="stat-bar-legend">
-                                <span>${data.accepted} ${lang.statsAccepted}</span>
-                                <span>${data.custom} ${lang.statsCustom}</span>
-                                <span>${data.rejected} ${lang.statsRejected}</span>
-                            </div>
-                        </div>`;
-                    }).join('')}
-                </div>
-            </div>
-            
-            ${historyTable}
-        </div>
-        
-        <!-- Details Modal (hidden by default) -->
-        <div id="consentDetailsModal" class="consent-details-modal">
-            <div class="consent-details-content">
-                <div class="consent-details-header">
-                    <h4>${lang.consentDetails}</h4>
-                    <span class="close-details-modal">&times;</span>
-                </div>
-                <div class="consent-details-body">
-                    <div id="consentDetailsContent"></div>
-                </div>
-                <div class="consent-details-footer">
-                    <button class="close-details-btn">${lang.close}</button>
-                </div>
-            </div>
         </div>
     </div>`;
 }
 
-// ... (keep all other existing functions like isDomainAllowed, checkGeoTargeting, etc.)
-
-// Generate cookie tables for each category with individual toggles if enabled
-function generateCategorySection(category, cookies, language = 'en') {
-    const lang = translations[language] || translations.en;
-    const categoryKey = category === 'functional' ? 'essential' : category;
-    const isEssential = category === 'functional' && config.cookieControls.essentialLocked;
+// Export analytics data
+function exportAnalyticsData(format = 'csv') {
+    if (!config.analytics.exportEnabled) return;
     
-    // Generate individual cookie toggles if enabled
-    const individualToggles = config.cookieControls.showIndividualCookies ? `
-    <div class="individual-cookies" style="display: none;">
-        <h4>${lang.individualCookies}</h4>
-        <table class="cookie-toggle-table">
-            <thead>
-                <tr>
-                    <th>${lang.cookieName}</th>
-                    <th>${lang.cookiePurpose}</th>
-                    <th>${lang.cookieDuration}</th>
-                    <th>Enabled</th>
-                </tr>
-            </thead>
-            <tbody>
+    let data;
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    
+    if (format === 'json') {
+        data = JSON.stringify(consentAnalytics, null, 2);
+        downloadFile(`cookie-consent-analytics-${timestamp}.json`, data, 'application/json');
+    } else {
+        // CSV format
+        let csv = 'Date,Accepted,Rejected,Custom\n';
+        
+        // Add daily stats
+        Object.keys(consentAnalytics.daily).sort().forEach(date => {
+            const day = consentAnalytics.daily[date];
+            csv += `${date},${day.accepted},${day.rejected},${day.custom}\n`;
+        });
+        
+        downloadFile(`cookie-consent-analytics-${timestamp}.csv`, csv, 'text/csv');
+    }
+}
+
+// Helper function to download files
+function downloadFile(filename, content, mimeType) {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+// ... [Previous functions like scanAndCategorizeCookies, getCookieDuration, etc.]
+
+// Enhanced injectConsentHTML with dual design options
+function injectConsentHTML(detectedCookies, language = 'en') {
+    const lang = translations[language] || translations.en;
+    const availableLanguages = getAvailableLanguages();
+    
+    // Detect website logo if enabled
+    let websiteLogo = '';
+    if (config.showWebsiteLogo) {
+        const logo = document.querySelector('img[alt*="logo"], img[src*="logo"], .logo img');
+        if (logo) {
+            websiteLogo = `<img src="${logo.src}" alt="Website Logo" class="website-logo">`;
+        } else if (config.logoUrl) {
+            websiteLogo = `<img src="${config.logoUrl}" alt="Website Logo" class="website-logo">`;
+        }
+    }
+    
+    // Generate cookie tables for each category
+    const generateCategorySection = (category) => {
+        const cookies = detectedCookies[category];
+        const categoryKey = category === 'functional' ? 'essential' : category;
+        const isEssential = category === 'functional';
+        
+        // Generate individual cookie toggles if enabled
+        const individualToggles = config.analytics.individualCookies && cookies.length > 0 ? `
+        <div class="individual-cookies" style="display: none;">
+            <h4>${lang.individualCookies}</h4>
+            <table class="cookie-toggle-table">
                 ${cookies.map(cookie => `
                 <tr>
                     <td><code>${cookie.name}</code></td>
-                    <td>${cookie.description}</td>
                     <td>${cookie.duration}</td>
+                    <td>${cookie.description}</td>
                     <td>
                         <label class="toggle-switch small">
                             <input type="checkbox" data-cookie="${cookie.name}" ${isEssential ? 'checked disabled' : 'checked'}>
                             <span class="toggle-slider"></span>
                         </label>
                     </td>
-                </tr>`).join('')}
-            </tbody>
-        </table>
-    </div>` : '';
-    
-    return `
-    <div class="cookie-category">
-        <div class="toggle-container">
-            <h3>${lang[categoryKey]}</h3>
-            <label class="toggle-switch">
-                <input type="checkbox" data-category="${category}" ${isEssential ? 'checked disabled' : 'checked'}>
-                <span class="toggle-slider"></span>
-            </label>
-        </div>
-        <p>${lang[`${categoryKey}Desc`]}</p>
-        <div class="cookie-details-container">
-            <div class="cookie-details-header">
-                <span>Cookie Details</span>
-                <span class="toggle-details">+</span>
+                </tr>
+                `).join('')}
+            </table>
+        </div>` : '';
+        
+        return `
+        <div class="cookie-category">
+            <div class="toggle-container">
+                <h3>${lang[categoryKey]}</h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" data-category="${category}" ${isEssential ? 'checked disabled' : 'checked'}>
+                    <span class="toggle-slider"></span>
+                </label>
             </div>
-            <div class="cookie-details-content" style="display: none;">
-                ${cookies.length > 0 ? 
-                    generateCookieTable(cookies) : 
-                    `<p class="no-cookies-message">No cookies in this category detected.</p>`}
-                ${individualToggles}
+            <p>${lang[`${categoryKey}Desc`]}</p>
+            <div class="cookie-details-container">
+                <div class="cookie-details-header">
+                    <span>${lang.cookieDetails}</span>
+                    <span class="toggle-details">${lang.toggleDetails}</span>
+                </div>
+                <div class="cookie-details-content" style="display: none;">
+                    ${cookies.length > 0 ? 
+                        generateCookieTable(cookies) : 
+                        `<p class="no-cookies-message">No cookies in this category detected.</p>`}
+                    ${individualToggles}
+                </div>
             </div>
-        </div>
-    </div>`;
-}
-
-// ... (keep all other existing functions like detectUserLanguage, getAvailableLanguages, etc.)
-
-// Generate the appropriate HTML based on selected design
-function generateConsentHTML(detectedCookies, language = 'en') {
-    const lang = translations[language] || translations.en;
-    const availableLanguages = getAvailableLanguages();
-    const colors = config.colors[currentColorScheme];
+        </div>`;
+    };
     
-    // Get logo URL
-    let logoUrl = '';
-    if (config.logo.enabled) {
-        if (config.logo.url === 'auto') {
-            // Try to find logo in common locations
-            const logoElement = document.querySelector('header img, .logo img, #logo img, img[alt*="logo"], img[src*="logo"]');
-            logoUrl = logoElement ? logoElement.src : '';
-        } else {
-            logoUrl = config.logo.url;
-        }
-    }
-    
-    // Generate language selector dropdown if enabled
-    const languageSelector = config.languageConfig.showLanguageSelector ? `
-    <div class="language-selector">
-        <select id="cookieLanguageSelect">
-            ${availableLanguages.map(code => `
-                <option value="${code}" ${code === language ? 'selected' : ''}>${translations[code].language}</option>
-            `).join('')}
-        </select>
-    </div>` : '';
-    
-    // Generate dark mode toggle if enabled
-    const darkModeToggle = config.behavior.darkModeToggle ? `
-    <div class="dark-mode-toggle">
-        <label class="toggle-switch small">
-            <input type="checkbox" id="darkModeToggle" ${currentColorScheme === 'dark' ? 'checked' : ''}>
-            <span class="toggle-slider"></span>
-        </label>
-        <span>${currentColorScheme === 'dark' ? lang.lightMode : lang.darkMode}</span>
-    </div>` : '';
-    
-    // Generate admin dashboard button if analytics enabled
-    const adminButton = config.analytics.enabled && config.analytics.showDashboard ? `
-    <div id="cookieAdminButton" class="cookie-admin-button" title="${lang.dashboardTitle}">
-        ${getIconSVG('admin')}
-    </div>` : '';
-    
-    // Generate the appropriate banner design
-    let bannerHTML = '';
-    if (config.uiTheme === 'design1') {
-        bannerHTML = generateDesign1Banner(lang, logoUrl, languageSelector, darkModeToggle, detectedCookies);
-    } else {
-        bannerHTML = generateDesign2Banner(lang, logoUrl, languageSelector, darkModeToggle, detectedCookies);
-    }
-    
-    const html = `
-    ${bannerHTML}
-    
-    <!-- Floating Settings Button -->
-    <div id="cookieFloatingButton" class="cookie-settings-button" title="${lang.title}">
-        ${getIconSVG('consent')}
-    </div>
-    
-    ${adminButton}
-    
-    <!-- Analytics Dashboard -->
-    <div id="cookieAnalyticsModal" class="cookie-analytics-modal">
-        <div class="cookie-analytics-content">
-            <div class="cookie-analytics-header">
-                <h2>${lang.dashboardTitle}</h2>
-                <span class="close-analytics-modal">&times;</span>
-            </div>
-            <div class="cookie-analytics-body">
-                ${config.analytics.passwordProtect && !isDashboardAuthenticated ? 
-                    generatePasswordPrompt(language) : 
-                    generateAnalyticsDashboard(language)}
-            </div>
-        </div>
-    </div>
-    
-    <style>
-    /* Main Styles - Dynamic based on config */
-    .cookie-consent-banner {
-        position: fixed;
-        bottom: 20px;
-        ${getBannerPosition()}
-        width: ${config.bannerWidth}px;
-        background: ${colors.background};
-        border-radius: ${colors.bannerRadius};
-        ${colors.bannerBorder ? `border: ${colors.bannerBorder};` : ''}
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-        z-index: 9999;
-        padding: 24px;
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        display: none;
-        ${getBannerAnimation('entrance')}
-        transition: all ${config.animations.duration}s ${config.animations.easing};
-        overflow: hidden;
-    }
-
-    .cookie-consent-banner.show {
-        ${getBannerAnimation('entrance', true)}
-        display: block;
-    }
-
-    /* ... (keep all other CSS rules, but update colors to use the dynamic variables) */
-    /* For example: */
-    .cookie-consent-content h2 {
-        color: ${colors.textDark};
-    }
-    
-    .cookie-consent-content p {
-        color: ${colors.textLight};
-    }
-    
-    .accept-btn {
-        background-color: ${colors.primary};
-        border-radius: ${colors.buttonRadius};
-        ${colors.buttonOutline ? `outline: ${colors.buttonOutline};` : ''}
-    }
-    
-    /* ... (include all other CSS from before, updated for dynamic colors) */
-    </style>`;
-    
-    document.body.insertAdjacentHTML('beforeend', html);
-}
-
-// Helper function to get banner position CSS
-function getBannerPosition() {
-    switch (config.bannerPosition) {
-        case 'left':
-            return 'left: 20px;';
-        case 'right':
-            return 'right: 20px;';
-        case 'center':
-            return 'left: 50%; transform: translateX(-50%);';
-        default:
-            return 'right: 20px;';
-    }
-}
-
-// Helper function to get animation CSS
-function getBannerAnimation(type, show = false) {
-    if (!config.animations.enabled) {
-        return show ? 'opacity: 1; transform: none;' : 'opacity: 0; transform: none;';
-    }
-    
-    const duration = config.animations.duration;
-    const easing = config.animations.easing;
-    
-    if (type === 'entrance') {
-        if (show) {
-            switch (config.animations.bannerEntrance) {
-                case 'slideUp':
-                    return `opacity: 1; transform: translateY(0); transition: all ${duration}s ${easing};`;
-                case 'fadeIn':
-                    return `opacity: 1; transform: none; transition: opacity ${duration}s ${easing};`;
-                case 'bounce':
-                    return `opacity: 1; transform: translateY(0); transition: all ${duration}s cubic-bezier(0.68, -0.55, 0.265, 1.55);`;
-                default:
-                    return `opacity: 1; transform: translateY(0);`;
-            }
-        } else {
-            switch (config.animations.bannerEntrance) {
-                case 'slideUp':
-                    return `opacity: 0; transform: translateY(20px);`;
-                case 'fadeIn':
-                    return `opacity: 0; transform: none;`;
-                case 'bounce':
-                    return `opacity: 0; transform: translateY(20px);`;
-                default:
-                    return `opacity: 0; transform: translateY(20px);`;
-            }
-        }
-    } else {
-        // Exit animations
-        if (!show) {
-            switch (config.animations.bannerExit) {
-                case 'slideDown':
-                    return `opacity: 0; transform: translateY(20px); transition: all ${duration}s ${easing};`;
-                case 'fadeOut':
-                    return `opacity: 0; transform: none; transition: opacity ${duration}s ${easing};`;
-                default:
-                    return `opacity: 0; transform: translateY(20px); transition: all ${duration}s ${easing};`;
-            }
-        }
-    }
-    
-    return '';
-}
-
-// Helper function to get appropriate icon SVG
-function getIconSVG(type) {
-    if (type === 'consent') {
-        switch (config.floatingElements.consentButton.icon) {
-            case 'cookie':
-                return `<svg viewBox="0 0 512 512"><path d="M257.5 27.6c-.8-5.4-4.9-9.8-10.3-10.6c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9-64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9c-.9-5.7-5.9-9.9-11.6-9.9c-51.5 0-101.5-14.7-144.9-42.3l-61.2-42.4c-10.1-7-21.8-11.1-33.9-11.9c-12.1-.9-24.1 1.6-34.9 7.2l-61.2 35.1c-6.4 3.7-14.6 1.9-19.3-4.1s-4.7-13.7 1.1-18.4l61.2-42.4c43.4-30.1 97.1-46.4 151.8-46.4c5.7 0 10.7-4.1 11.6-9.8zM133.4 303.6c-25.9 0-46.9-21-46.9-46.9s21-46.9 46.9-46.9s46.9 21 46.9 46.9s-21 46.9-46.9 46.9zm116.1-90.3c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zm92.3 99.7c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48z"/></svg>`;
-            case 'shield':
-                return `<svg viewBox="0 0 512 512"><path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0zm0 66.8V444.8C394 378 431.1 230.1 432 141.4L256 66.8l0 0z"/></svg>`;
-            case 'gear':
-                return `<svg viewBox="0 0 512 512"><path d="M495.9 166.6c3.2 8.7 .5 18.4-6.4 24.6l-43.3 39.4c1.1 8.3 1.7 16.8 1.7 25.4s-.6 17.1-1.7 25.4l43.3 39.4c6.9 6.2 9.6 15.9 6.4 24.6c-4.4 11.9-9.7 23.3-15.8 34.3l-4.7 8.1c-6.6 11-14 21.4-22.1 31.2c-5.9 7.2-15.7 9.6-24.5 6.8l-55.7-17.7c-13.4 10.3-28.2 18.9-44 25.4l-12.5 57.1c-2 9.1-9 16.3-18.2 17.8c-13.8 2.3-28 3.5-42.5 3.5s-28.7-1.2-42.5-3.5c-9.2-1.5-16.2-8.7-18.2-17.8l-12.5-57.1c-15.8-6.5-30.6-15.1-44-25.4l-55.7 17.7c-8.8 2.8-18.6 .4-24.5-6.8c-8.1-9.8-15.5-20.2-22.1-31.2l-4.7-8.1c-6.1-11-11.4-22.4-15.8-34.3c-3.2-8.7-.5-18.4 6.4-24.6l43.3-39.4C64.6 273.1 64 264.6 64 256s.6-17.1 1.7-25.4L22.4 191.2c-6.9-6.2-9.6-15.9-6.4-24.6c4.4-11.9 9.7-23.3 15.8-34.3l4.7-8.1c6.6-11 14-21.4 22.1-31.2c5.9-7.2 15.7-9.6 24.5-6.8l55.7 17.7c13.4-10.3 28.2-18.9 44-25.4l12.5-57.1c2-9.1 9-16.3 18.2-17.8C227.3 1.2 241.5 0 256 0s28.7 1.2 42.5 3.5c9.2 1.5 16.2 8.7 18.2 17.8l12.5 57.1c15.8 6.5 30.6 15.1 44 25.4l55.7-17.7c8.8-2.8 18.6-.4 24.5 6.8c8.1 9.8 15.5 20.2 22.1 31.2l4.7 8.1c6.1 11 11.4 22.4 15.8 34.3zM256 336a80 80 0 1 0 0-160 80 80 0 1 0 0 160z"/></svg>`;
-            default:
-                return `<svg viewBox="0 0 512 512"><path d="M257.5 27.6c-.8-5.4-4.9-9.8-10.3-10.6c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9-64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9c-.9-5.7-5.9-9.9-11.6-9.9c-51.5 0-101.5-14.7-144.9-42.3l-61.2-42.4c-10.1-7-21.8-11.1-33.9-11.9c-12.1-.9-24.1 1.6-34.9 7.2l-61.2 35.1c-6.4 3.7-14.6 1.9-19.3-4.1s-4.7-13.7 1.1-18.4l61.2-42.4c43.4-30.1 97.1-46.4 151.8-46.4c5.7 0 10.7-4.1 11.6-9.8zM133.4 303.6c-25.9 0-46.9-21-46.9-46.9s21-46.9 46.9-46.9s46.9 21 46.9 46.9s-21 46.9-46.9 46.9zm116.1-90.3c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zm92.3 99.7c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48z"/></svg>`;
-        }
-    } else {
-        // Admin button icons
-        switch (config.floatingElements.adminButton.icon) {
-            case 'chart':
-                return `<svg viewBox="0 0 512 512"><path d="M64 64c0-17.7-14.3-32-32-32S0 46.3 0 64V400c0 44.2 35.8 80 80 80H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H80c-8.8 0-16-7.2-16-16V64zm96 288c0-17.7 14.3-32 32-32s32 14.3 32 32v64c0 17.7-14.3 32-32 32s-32-14.3-32-32V352zM256 192c17.7 0 32 14.3 32 32v192c0 17.7-14.3 32-32 32s-32-14.3-32-32V224c0-17.7 14.3-32 32-32zm128-64c17.7 0 32 14.3 32 32v256c0 17.7-14.3 32-32 32s-32-14.3-32-32V160c0-17.7 14.3-32 32-32z"/></svg>`;
-            case 'analytics':
-                return `<svg viewBox="0 0 512 512"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>`;
-            case 'stats':
-                return `<svg viewBox="0 0 448 512"><path d="M160 80c0-26.5 21.5-48 48-48h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H208c-26.5 0-48-21.5-48-48V80zM0 272c0-26.5 21.5-48 48-48H80c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V272zM368 96h32c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48H368c-26.5 0-48-21.5-48-48V144c0-26.5 21.5-48 48-48z"/></svg>`;
-            default:
-                return `<svg viewBox="0 0 576 512"><path d="M288 160C252.7 160 224 188.7 224 224C224 259.3 252.7 288 288 288C323.3 288 352 259.3 352 224C352 188.7 323.3 160 288 160zM95.4 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.4 399.4C48.6 355.1 17.3 304 2.5 268.3C-.8 260.4-.8 251.6 2.5 243.7C17.3 207.1 48.6 156 95.4 112.6V112.6zM288 80C218.6 80 160 138.6 160 208C160 277.4 218.6 336 288 336C357.4 336 416 277.4 416 208C416 138.6 357.4 80 288 80zM44.96 256C56.53 286.1 83.51 329.2 124.4 368C165.3 406.8 219.1 432 288 432C356.9 432 410.7 406.8 451.6 368C492.5 329.2 519.5 286.1 531 256C519.5 225.9 492.5 182.8 451.6 144C410.7 105.2 356.9 80 288 80C219.1 80 165.3 105.2 124.4 144C83.51 182.8 56.53 225.9 44.96 256V256z"/></svg>`;
-        }
-    }
-}
-
-// Generate Design 1 Banner (original design)
-function generateDesign1Banner(lang, logoUrl, languageSelector, darkModeToggle, detectedCookies) {
-    return `
-    <!-- Main Consent Banner - Design 1 -->
-    <div id="cookieConsentBanner" class="cookie-consent-banner">
-        <div class="cookie-consent-container">
-            ${languageSelector}
-            ${darkModeToggle}
-            ${logoUrl ? `<div class="cookie-consent-logo"><img src="${logoUrl}" alt="Logo" width="${config.logo.width}" height="${config.logo.height}"></div>` : ''}
+    // Generate modern design banner
+    const generateModernBanner = () => {
+        return `
+        <div id="cookieConsentBanner" class="cookie-consent-banner modern">
+            ${websiteLogo}
             <div class="cookie-consent-content">
                 <h2>${lang.title}</h2>
                 <p>${lang.description}</p>
                 <a href="/privacy-policy/" class="privacy-policy-link">${lang.privacy}</a>
             </div>
             <div class="cookie-consent-buttons">
-                <button id="acceptAllBtn" class="cookie-btn accept-btn">${lang.accept}</button>
-                <button id="adjustConsentBtn" class="cookie-btn adjust-btn">${lang.customize}</button>
                 <button id="rejectAllBtn" class="cookie-btn reject-btn">${lang.reject}</button>
+                <button id="adjustConsentBtn" class="cookie-btn adjust-btn">${lang.customize}</button>
+                <button id="acceptAllBtn" class="cookie-btn accept-btn">${lang.accept}</button>
             </div>
-        </div>
-    </div>
-
+            ${config.behavior.showCloseButton ? `<button class="close-banner">&times;</button>` : ''}
+        </div>`;
+    };
+    
+    // Generate default design banner
+    const generateDefaultBanner = () => {
+        return `
+        <div id="cookieConsentBanner" class="cookie-consent-banner default">
+            <div class="cookie-consent-container">
+                ${config.languageConfig.showLanguageSelector ? `
+                <div class="language-selector">
+                    <select id="cookieLanguageSelect">
+                        ${availableLanguages.map(code => `
+                            <option value="${code}" ${code === language ? 'selected' : ''}>${translations[code].language}</option>
+                        `).join('')}
+                    </select>
+                </div>` : ''}
+                <div class="cookie-consent-content">
+                    <h2>${lang.title}</h2>
+                    <p>${lang.description}</p>
+                    <a href="/privacy-policy/" class="privacy-policy-link">${lang.privacy}</a>
+                </div>
+                <div class="cookie-consent-buttons">
+                    <button id="acceptAllBtn" class="cookie-btn accept-btn">${lang.accept}</button>
+                    <button id="adjustConsentBtn" class="cookie-btn adjust-btn">${lang.customize}</button>
+                    <button id="rejectAllBtn" class="cookie-btn reject-btn">${lang.reject}</button>
+                </div>
+            </div>
+        </div>`;
+    };
+    
+    // Generate floating button SVG based on style
+    const getFloatingButtonIcon = (type) => {
+        if (type === 'modern') {
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <path d="M257.5 27.6c-.8-5.4-4.9-9.8-10.3-10.6c-22.1-3.1-44.6 .9-64.4 11.4l-74 39.5C89.1 78.4 73.2 94.9 63.4 115L26.7 190.6c-9.8 20.1-13 42.9-9.1 64.9l14.5 82.8c3.9 22.1 14.6 42.3 30.7 57.9l60.3 58.4c16.1 15.6 36.6 25.6 58.7 28.7l83 11.7c22.1 3.1 44.6-.9-64.4-11.4l74-39.5c19.7-10.5 35.6-27 45.4-47.2l36.7-75.5c9.8-20.1 13-42.9 9.1-64.9c-.9-5.7-5.9-9.9-11.6-9.9c-51.5 0-101.5-14.7-144.9-42.3l-61.2-42.4c-10.1-7-21.8-11.1-33.9-11.9c-12.1-.9-24.1 1.6-34.9 7.2l-61.2 35.1c-6.4 3.7-14.6 1.9-19.3-4.1s-4.7-13.7 1.1-18.4l61.2-42.4c43.4-30.1 97.1-46.4 151.8-46.4c5.7 0 10.7-4.1 11.6-9.8zM133.4 303.6c-25.9 0-46.9-21-46.9-46.9s21-46.9 46.9-46.9s46.9 21 46.9 46.9s-21 46.9-46.9 46.9zm116.1-90.3c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48zm92.3 99.7c-26.5 0-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48s-21.5-48-48-48z"/>
+            </svg>`;
+        }
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M510.5 225.5c-4.6-11.4-23.1-29.9-47.2-48.3C439.9 159 401.3 137 357.4 120.5c-43.9-16.5-91.9-25.8-141.9-26.1h-3.1c-50 0-98 9.3-141.9 26.1C24.7 137-14 159-47.8 177.2c-24.1 18.4-42.6 36.9-47.2 48.3c-4.6 11.4-5.3 32.4 19.8 54.7c24.8 21.9 71.7 44.1 125.3 59.6c53.6 15.6 109.9 23.5 163.6 23.2c53.7 .3 110-7.6 163.6-23.2c53.6-15.5 100.5-37.7 125.3-59.6c25.1-22.3 24.4-43.3 19.8-54.7zM48 256c12-21.2 41.3-41.9 89.2-61.3c46.8-18.9 105.1-29.7 165.2-30c60.1 .3 118.4 11.1 165.2 30c47.9 19.4 77.2 40.1 89.2 61.3c-12 21.2-41.3 41.9-89.2 61.3c-46.8 18.9-105.1 29.7-165.2 30c-60.1-.3-118.4-11.1-165.2-30C89.3 297.9 60 277.2 48 256zM224 128c0-17.7 14.3-32 32-32s32 14.3 32 32v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V128zm0 256c0-17.7 14.3-32 32-32s32 14.3 32 32v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V384zm0-128c0-17.7 14.3-32 32-32s32 14.3 32 32v32c0 17.7-14.3 32-32 32s-32-14.3-32-32V256z"/>
+        </svg>`;
+    };
+    
+    // Generate admin button SVG based on style
+    const getAdminButtonIcon = (type) => {
+        if (type === 'modern') {
+            return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                <path d="M288 160C252.7 160 224 188.7 224 224C224 259.3 252.7 288 288 288C323.3 288 352 259.3 352 224C352 188.7 323.3 160 288 160zM95.4 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.4 399.4C48.6 355.1 17.3 304 2.5 268.3C-.8 260.4-.8 251.6 2.5 243.7C17.3 207.1 48.6 156 95.4 112.6V112.6zM288 80C218.6 80 160 138.6 160 208C160 277.4 218.6 336 288 336C357.4 336 416 277.4 416 208C416 138.6 357.4 80 288 80zM44.96 256C56.53 286.1 83.51 329.2 124.4 368C165.3 406.8 219.1 432 288 432C356.9 432 410.7 406.8 451.6 368C492.5 329.2 519.5 286.1 531 256C519.5 225.9 492.5 182.8 451.6 144C410.7 105.2 356.9 80 288 80C219.1 80 165.3 105.2 124.4 144C83.51 182.8 56.53 225.9 44.96 256V256z"/>
+            </svg>`;
+        }
+        return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+            <path d="M384 160c-17.7 0-32-14.3-32-32s14.3-32 32-32H544c17.7 0 32 14.3 32 32V288c0 17.7-14.3 32-32 32s-32-14.3-32-32V205.3L342.6 374.6c-12.5 12.5-32.8 12.5-45.3 0L192 269.3 54.6 406.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l160-160c12.5-12.5 32.8-12.5 45.3 0L320 306.7 466.7 160H384z"/>
+        </svg>`;
+    };
+    
+    // Generate the appropriate banner based on config
+    const bannerHTML = config.bannerDesign === 'modern' ? generateModernBanner() : generateDefaultBanner();
+    
+    const html = `
+    ${bannerHTML}
+    
     <!-- Settings Modal -->
     <div id="cookieSettingsModal" class="cookie-settings-modal">
         <div class="cookie-settings-content">
             <div class="cookie-settings-header">
                 <h2>${lang.title}</h2>
-                <span class="close-modal">&times;</span>
+                <button class="close-modal">&times;</button>
             </div>
             <div class="cookie-settings-body">
-                ${generateCategorySection('functional', detectedCookies.functional, lang)}
-                ${generateCategorySection('analytics', detectedCookies.analytics, lang)}
-                ${generateCategorySection('performance', detectedCookies.performance, lang)}
-                ${generateCategorySection('advertising', detectedCookies.advertising, lang)}
-                ${detectedCookies.uncategorized.length > 0 ? generateCategorySection('uncategorized', detectedCookies.uncategorized, lang) : ''}
+                ${generateCategorySection('functional')}
+                ${generateCategorySection('analytics')}
+                ${generateCategorySection('performance')}
+                ${generateCategorySection('advertising')}
+                ${detectedCookies.uncategorized.length > 0 ? generateCategorySection('uncategorized') : ''}
             </div>
             <div class="cookie-settings-footer">
                 <button id="rejectAllSettingsBtn" class="cookie-btn reject-btn">${lang.reject}</button>
@@ -864,336 +668,447 @@ function generateDesign1Banner(lang, logoUrl, languageSelector, darkModeToggle, 
                 <button id="acceptAllSettingsBtn" class="cookie-btn accept-btn">${lang.accept}</button>
             </div>
         </div>
-    </div>`;
-}
+    </div>
 
-// Generate Design 2 Banner (alternative design)
-function generateDesign2Banner(lang, logoUrl, languageSelector, darkModeToggle, detectedCookies) {
-    return `
-    <!-- Main Consent Banner - Design 2 -->
-    <div id="cookieConsentBanner" class="cookie-consent-banner design2">
-        <div class="cookie-consent-container">
-            ${logoUrl ? `<div class="cookie-consent-logo"><img src="${logoUrl}" alt="Logo" width="${config.logo.width}" height="${config.logo.height}"></div>` : ''}
-            <div class="cookie-consent-content">
-                <h2>${lang.title}</h2>
-                <p>${lang.description}</p>
-                <div class="cookie-consent-actions">
-                    <a href="/privacy-policy/" class="privacy-policy-link">${lang.privacy}</a>
-                    <div class="cookie-consent-controls">
-                        ${languageSelector}
-                        ${darkModeToggle}
-                    </div>
+    <!-- Floating Settings Button -->
+    ${config.floatingButton.enabled ? `
+    <div id="cookieFloatingButton" class="cookie-settings-button" title="${lang.title}">
+        ${getFloatingButtonIcon(config.floatingButton.icon)}
+    </div>` : ''}
+    
+    <!-- Admin Button -->
+    ${config.adminButton.enabled && config.analytics.enabled && config.analytics.showDashboard ? `
+    <div id="cookieAdminButton" class="cookie-admin-button" title="${lang.dashboardTitle}">
+        ${getAdminButtonIcon(config.adminButton.icon)}
+    </div>` : ''}
+    
+    <!-- Analytics Dashboard -->
+    <div id="cookieAnalyticsModal" class="cookie-analytics-modal">
+        <div class="cookie-analytics-content">
+            <div class="cookie-analytics-header">
+                <h2>${lang.dashboardTitle}</h2>
+                <div class="analytics-header-controls">
+                    ${config.analytics.exportEnabled ? `
+                    <button id="exportAnalyticsBtn" class="cookie-btn export-btn">${lang.exportData}</button>
+                    ` : ''}
+                    <button class="close-analytics-modal">${lang.close}</button>
                 </div>
             </div>
-            <div class="cookie-consent-buttons">
-                <button id="rejectAllBtn" class="cookie-btn reject-btn">${lang.reject}</button>
-                <button id="adjustConsentBtn" class="cookie-btn adjust-btn">${lang.customize}</button>
-                <button id="acceptAllBtn" class="cookie-btn accept-btn">${lang.accept}</button>
+            <div class="cookie-analytics-body">
+                ${config.analytics.passwordProtect && !isDashboardAuthenticated ? 
+                    generatePasswordPrompt(language) : 
+                    generateAnalyticsDashboard(language)}
+                ${config.analytics.consentHistory ? generateConsentHistory(language) : ''}
             </div>
         </div>
     </div>
-
-    <!-- Settings Modal -->
-    <div id="cookieSettingsModal" class="cookie-settings-modal design2">
-        <div class="cookie-settings-content">
-            <div class="cookie-settings-header">
-                <h2>${lang.title}</h2>
-                <span class="close-modal">&times;</span>
-            </div>
-            <div class="cookie-settings-body">
-                ${generateCategorySection('functional', detectedCookies.functional, lang)}
-                ${generateCategorySection('analytics', detectedCookies.analytics, lang)}
-                ${generateCategorySection('performance', detectedCookies.performance, lang)}
-                ${generateCategorySection('advertising', detectedCookies.advertising, lang)}
-                ${detectedCookies.uncategorized.length > 0 ? generateCategorySection('uncategorized', detectedCookies.uncategorized, lang) : ''}
-            </div>
-            <div class="cookie-settings-footer">
-                <button id="rejectAllSettingsBtn" class="cookie-btn reject-btn">${lang.reject}</button>
-                <button id="saveSettingsBtn" class="cookie-btn save-btn">${lang.save}</button>
-                <button id="acceptAllSettingsBtn" class="cookie-btn accept-btn">${lang.accept}</button>
-            </div>
-        </div>
-    </div>`;
-}
-
-// ... (keep all other existing functions like initializeCookieConsent, setupEventListeners, etc.)
-
-// Enhanced initializeCookieConsent with dark mode support
-function initializeCookieConsent(detectedCookies, language) {
-    const consentGiven = getCookie('cookie_consent');
     
-    // Apply dark mode if enabled
-    if (config.darkMode.enabled) {
-        document.documentElement.setAttribute('data-color-scheme', currentColorScheme);
+    <!-- Dark Mode Toggle (for admin) -->
+    <button id="darkModeToggle" class="dark-mode-toggle">
+        ${currentColorScheme === config.colors.dark ? lang.lightMode : lang.darkMode}
+    </button>
+    
+    <style>
+    /* Base Styles */
+    .cookie-consent-banner, 
+    .cookie-settings-modal, 
+    .cookie-analytics-modal {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        box-sizing: border-box;
     }
     
-    if (!consentGiven && config.behavior.autoShow) {
-        showCookieBanner();
-    } else if (consentGiven) {
-        const consentData = JSON.parse(consentGiven);
-        updateConsentMode(consentData);
-        loadCookiesAccordingToConsent(consentData);
-        showFloatingButton();
+    /* Modern Banner Styles */
+    .cookie-consent-banner.modern {
+        position: fixed;
+        ${getBannerPosition()}
+        width: ${config.bannerSize.width}px;
+        min-width: ${config.bannerSize.minWidth}px;
+        max-width: ${config.bannerSize.maxWidth}px;
+        ${config.bannerSize.height === 'auto' ? '' : `height: ${config.bannerSize.height}px;`}
+        background: ${currentColorScheme.bannerBg};
+        border-radius: ${config.bannerSize.borderRadius}px;
+        ${config.bannerSize.borderWidth > 0 ? `border: ${config.bannerSize.borderWidth}px solid ${currentColorScheme.bannerBorder};` : ''}
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        z-index: 9999;
+        padding: 24px;
+        display: none;
+        ${getAnimationStyle('entrance')}
+        transition: all ${config.animations.duration}ms ${config.animations.easing};
     }
     
-    // Set up event listeners
-    setupEventListeners();
-    
-    // Setup cookie details toggles
-    document.querySelectorAll('.cookie-details-header').forEach(header => {
-        header.addEventListener('click', function() {
-            const content = this.nextElementSibling;
-            const toggle = this.querySelector('.toggle-details');
-            if (content.style.display === 'none') {
-                content.style.display = 'block';
-                toggle.textContent = '−';
-            } else {
-                content.style.display = 'none';
-                toggle.textContent = '+';
-            }
-        });
-    });
-    
-    // Setup language selector change event
-    const languageSelect = document.getElementById('cookieLanguageSelect');
-    if (languageSelect) {
-        languageSelect.addEventListener('change', function() {
-            changeLanguage(this.value);
-        });
+    .cookie-consent-banner.modern.show {
+        ${getAnimationStyle('entrance', true)}
+        display: flex;
+        flex-direction: column;
     }
     
-    // Setup dark mode toggle if enabled
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', function() {
-            toggleDarkMode(this.checked);
-        });
+    .cookie-consent-banner.modern .website-logo {
+        max-width: 60px;
+        margin-bottom: 15px;
     }
     
-    // Setup admin button if enabled
-    if (config.analytics.enabled && config.analytics.showDashboard) {
-        const adminButton = document.getElementById('cookieAdminButton');
-        if (adminButton) {
-            adminButton.addEventListener('click', showAnalyticsDashboard);
-            setTimeout(() => {
-                adminButton.style.display = 'flex';
-                adminButton.classList.add('show');
-            }, 100);
+    .cookie-consent-banner.modern .cookie-consent-content {
+        flex: 1;
+    }
+    
+    .cookie-consent-banner.modern .cookie-consent-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 20px;
+    }
+    
+    .cookie-consent-banner.modern .close-banner {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: ${currentColorScheme.textLight};
+    }
+    
+    /* Default Banner Styles */
+    .cookie-consent-banner.default {
+        position: fixed;
+        ${getBannerPosition()}
+        width: ${config.bannerSize.width}px;
+        min-width: ${config.bannerSize.minWidth}px;
+        max-width: ${config.bannerSize.maxWidth}px;
+        ${config.bannerSize.height === 'auto' ? '' : `height: ${config.bannerSize.height}px;`}
+        background: ${currentColorScheme.bannerBg};
+        border-radius: ${config.bannerSize.borderRadius}px;
+        ${config.bannerSize.borderWidth > 0 ? `border: ${config.bannerSize.borderWidth}px solid ${currentColorScheme.bannerBorder};` : ''}
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        z-index: 9999;
+        padding: 24px;
+        display: none;
+        ${getAnimationStyle('entrance')}
+        transition: all ${config.animations.duration}ms ${config.animations.easing};
+    }
+    
+    .cookie-consent-banner.default.show {
+        ${getAnimationStyle('entrance', true)}
+        display: block;
+    }
+    
+    /* Common Banner Elements */
+    .cookie-consent-content h2 {
+        margin: 0 0 16px 0;
+        font-size: 18px;
+        color: ${currentColorScheme.textDark};
+        font-weight: 600;
+        line-height: 1.4;
+    }
+    
+    .cookie-consent-content p {
+        margin: 0 0 24px 0;
+        font-size: 14px;
+        color: ${currentColorScheme.textLight};
+        line-height: 1.5;
+    }
+    
+    .privacy-policy-link {
+        color: ${currentColorScheme.secondary};
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 24px;
+        transition: color 0.2s ease;
+    }
+    
+    .privacy-policy-link:hover {
+        color: ${darkenColor(currentColorScheme.secondary, 20)};
+    }
+    
+    .cookie-consent-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+    }
+    
+    .cookie-btn {
+        padding: ${config.buttons.padding};
+        border-radius: ${config.buttons.borderRadius}px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        text-align: center;
+        border: ${config.buttons.borderWidth}px solid transparent;
+        ${config.buttons.shadow ? 'box-shadow: 0 2px 5px rgba(0,0,0,0.1);' : ''}
+        ${config.buttons.hoverEffect ? 'transform: translateY(0);' : ''}
+    }
+    
+    .cookie-btn:hover {
+        ${config.buttons.hoverEffect ? `
+        transform: translateY(-2px);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+        ` : ''}
+    }
+    
+    .adjust-btn {
+        background-color: ${currentColorScheme.background === '#ffffff' ? '#f8f9fa' : lightenColor(currentColorScheme.background, 10)};
+        color: ${currentColorScheme.textDark};
+        border: 1px solid ${currentColorScheme.textLight};
+    }
+    
+    .adjust-btn:hover {
+        background-color: ${currentColorScheme.buttonHover.adjust};
+    }
+    
+    .reject-btn {
+        background-color: ${currentColorScheme.danger};
+        color: ${currentColorScheme.buttonText};
+        border: 1px solid ${currentColorScheme.danger};
+    }
+    
+    .reject-btn:hover {
+        background-color: ${currentColorScheme.buttonHover.reject};
+    }
+    
+    .accept-btn {
+        background-color: ${currentColorScheme.primary};
+        color: ${currentColorScheme.buttonText};
+        border: 1px solid ${currentColorScheme.primary};
+        ${config.buttons.shadow ? `box-shadow: 0 2px 12px ${hexToRgba(currentColorScheme.primary, 0.3)};` : ''}
+    }
+    
+    .accept-btn:hover {
+        background-color: ${currentColorScheme.buttonHover.accept};
+    }
+    
+    .export-btn {
+        background-color: ${currentColorScheme.secondary};
+        color: ${currentColorScheme.buttonText};
+        border: 1px solid ${currentColorScheme.secondary};
+    }
+    
+    .export-btn:hover {
+        background-color: ${currentColorScheme.buttonHover.save};
+    }
+    
+    /* Language Selector */
+    .language-selector {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    
+    .language-selector select {
+        padding: 6px 10px;
+        border-radius: 6px;
+        border: 1px solid ${currentColorScheme.textLight};
+        background-color: ${currentColorScheme.background === '#ffffff' ? '#f8f9fa' : lightenColor(currentColorScheme.background, 10)};
+        font-size: 13px;
+        color: ${currentColorScheme.textDark};
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    
+    .language-selector select:hover {
+        border-color: ${currentColorScheme.secondary};
+        background-color: ${currentColorScheme.background};
+    }
+    
+    /* Settings Modal */
+    .cookie-settings-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 10000;
+        overflow-y: auto;
+        padding: 30px 0;
+        opacity: 0;
+        transition: opacity ${config.animations.duration}ms ${config.animations.easing};
+    }
+    
+    .cookie-settings-modal.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+    
+    .cookie-settings-content {
+        background-color: ${currentColorScheme.background};
+        margin: 0 auto;
+        width: 845px;
+        max-height: 80vh;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        transform: translateY(20px);
+        transition: transform ${config.animations.duration}ms ${config.animations.easing};
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .cookie-settings-modal.show .cookie-settings-content {
+        transform: translateY(0);
+    }
+    
+    /* ... [Rest of the CSS styles] ... */
+    
+    /* Dark Mode Toggle */
+    .dark-mode-toggle {
+        position: fixed;
+        bottom: 30px;
+        left: 30px;
+        padding: 8px 12px;
+        background-color: ${currentColorScheme.primary};
+        color: white;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        z-index: 9996;
+        font-size: 12px;
+        font-weight: 600;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 900px) {
+        .cookie-settings-content, .cookie-analytics-content {
+            width: 90%;
         }
     }
     
-    // Setup password prompt events if needed
-    if (config.analytics.passwordProtect && !isDashboardAuthenticated) {
-        setupPasswordPromptEvents();
-    }
-    
-    // Setup export buttons if enabled
-    if (config.analytics.exportEnabled) {
-        document.getElementById('exportCSV')?.addEventListener('click', exportDataAsCSV);
-        document.getElementById('exportJSON')?.addEventListener('click', exportDataAsJSON);
-    }
-    
-    // Setup history details buttons if enabled
-    if (config.analytics.detailedHistory) {
-        document.querySelectorAll('.view-details-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                showConsentDetails(this.getAttribute('data-timestamp'));
-            });
-        });
+    @media (max-width: 768px) {
+        .cookie-consent-banner {
+            width: 90%;
+            ${config.bannerPosition === 'left' ? 'left: 5%;' : config.bannerPosition === 'right' ? 'right: 5%;' : 'left: 5%; right: 5%;'}
+            bottom: 10px;
+        }
         
-        document.querySelector('.close-details-modal')?.addEventListener('click', hideConsentDetails);
-        document.querySelector('.close-details-btn')?.addEventListener('click', hideConsentDetails);
-    }
-}
-
-// Toggle dark mode
-function toggleDarkMode(enableDark) {
-    currentColorScheme = enableDark ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-color-scheme', currentColorScheme);
-    
-    // Update the toggle state
-    const darkModeToggle = document.getElementById('darkModeToggle');
-    if (darkModeToggle) {
-        darkModeToggle.checked = enableDark;
-    }
-    
-    // Update the text
-    const darkModeText = document.querySelector('.dark-mode-toggle span');
-    if (darkModeText) {
-        const lang = translations[document.getElementById('cookieLanguageSelect')?.value || 'en'] || translations.en;
-        darkModeText.textContent = enableDark ? lang.lightMode : lang.darkMode;
-    }
-    
-    // Store preference in cookie
-    setCookie('color_scheme', currentColorScheme, 365);
-}
-
-// Show consent details modal
-function showConsentDetails(timestamp) {
-    const entry = consentAnalytics.history.find(e => e.timestamp === timestamp);
-    if (!entry) return;
-    
-    const modal = document.getElementById('consentDetailsModal');
-    const content = document.getElementById('consentDetailsContent');
-    const lang = translations[document.getElementById('cookieLanguageSelect')?.value || 'en'] || translations.en;
-    
-    content.innerHTML = `
-    <div class="detail-row">
-        <strong>${lang.timestamp}:</strong>
-        <span>${new Date(entry.timestamp).toLocaleString()}</span>
-    </div>
-    <div class="detail-row">
-        <strong>${lang.consentStatus}:</strong>
-        <span>${entry.status}</span>
-    </div>
-    <div class="detail-row">
-        <strong>${lang.language}:</strong>
-        <span>${entry.language}</span>
-    </div>
-    <div class="detail-row">
-        <strong>${lang.userAgent}:</strong>
-        <span>${entry.userAgent}</span>
-    </div>
-    <div class="detail-row">
-        <strong>Referrer:</strong>
-        <span>${entry.referrer || 'Direct'}</span>
-    </div>
-    <div class="detail-row">
-        <strong>Categories:</strong>
-        <div class="category-tags">
-            ${Object.entries(entry.categories).map(([cat, enabled]) => `
-            <span class="category-tag ${enabled ? 'enabled' : 'disabled'}">${cat}: ${enabled ? 'Enabled' : 'Disabled'}</span>
-            `).join('')}
-        </div>
-    </div>`;
-    
-    modal.style.display = 'block';
-}
-
-function hideConsentDetails() {
-    document.getElementById('consentDetailsModal').style.display = 'none';
-}
-
-// Export data as CSV
-function exportDataAsCSV() {
-    let csv = 'Timestamp,Status,Language,User Agent,Referrer,Functional,Analytics,Performance,Advertising,Other\n';
-    
-    consentAnalytics.history.forEach(entry => {
-        csv += `"${new Date(entry.timestamp).toLocaleString()}","${entry.status}","${entry.language}","${entry.userAgent}","${entry.referrer || 'Direct'}",`;
-        csv += `"${entry.categories.functional ? 'Yes' : 'No'}","${entry.categories.analytics ? 'Yes' : 'No'}","${entry.categories.performance ? 'Yes' : 'No'}","${entry.categories.advertising ? 'Yes' : 'No'}","${entry.categories.uncategorized ? 'Yes' : 'No'}"\n`;
-    });
-    
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `cookie-consent-data-${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// Export data as JSON
-function exportDataAsJSON() {
-    const data = {
-        metadata: {
-            exportedAt: new Date().toISOString(),
-            totalEntries: consentAnalytics.history.length,
-            version: '5.0'
-        },
-        data: consentAnalytics.history
-    };
-    
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `cookie-consent-data-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-// ... (keep all other existing functions like acceptAllCookies, rejectAllCookies, etc.)
-
-// Enhanced saveCustomSettings with individual cookie controls
-function saveCustomSettings() {
-    const categories = {
-        functional: true,  // Essential cookies always enabled
-        analytics: document.querySelector('input[data-category="analytics"]').checked,
-        performance: document.querySelector('input[data-category="performance"]').checked,
-        advertising: document.querySelector('input[data-category="advertising"]').checked,
-        uncategorized: document.querySelector('input[data-category="uncategorized"]') ? 
-            document.querySelector('input[data-category="uncategorized"]').checked : false
-    };
-    
-    // Get individual cookie settings if enabled
-    const individualCookies = {};
-    if (config.cookieControls.showIndividualCookies) {
-        document.querySelectorAll('input[data-cookie]').forEach(input => {
-            individualCookies[input.getAttribute('data-cookie')] = input.checked;
-        });
-    }
-    
-    const consentData = {
-        status: 'custom',
-        gcs: 'G101',
-        categories,
-        individualCookies,
-        timestamp: new Date().getTime()
-    };
-    
-    setCookie('cookie_consent', JSON.stringify(consentData), 365);
-    updateConsentMode(consentData);
-    loadCookiesAccordingToConsent(consentData);
-    
-    // Clear cookies if categories were disabled
-    if (!consentData.categories.analytics) clearCategoryCookies('analytics');
-    if (!consentData.categories.performance) clearCategoryCookies('performance');
-    if (!consentData.categories.advertising) clearCategoryCookies('advertising');
-    if (!consentData.categories.uncategorized) clearCategoryCookies('uncategorized');
-    
-    // Clear individual cookies that were disabled
-    if (config.cookieControls.showIndividualCookies) {
-        for (const [cookieName, enabled] of Object.entries(individualCookies)) {
-            if (!enabled) {
-                document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${window.location.hostname}`;
-            }
+        .cookie-consent-buttons {
+            flex-direction: column;
         }
     }
     
-    // Update analytics
-    if (config.analytics.enabled) {
-        updateConsentStats('custom', consentData);
+    @media (max-width: 480px) {
+        .cookie-consent-banner {
+            padding: 15px;
+            width: calc(100% - 30px);
+        }
+        
+        .cookie-settings-button, .cookie-admin-button {
+            width: 50px;
+            height: 50px;
+        }
+    }
+    </style>`;
+    
+    document.body.insertAdjacentHTML('beforeend', html);
+}
+
+// Helper function to get banner position
+function getBannerPosition() {
+    switch (config.bannerPosition) {
+        case 'left':
+            return 'left: 20px; bottom: 20px;';
+        case 'right':
+            return 'right: 20px; bottom: 20px;';
+        case 'center':
+            return 'left: 50%; bottom: 20px; transform: translateX(-50%);';
+        default:
+            return 'right: 20px; bottom: 20px;';
     }
 }
 
-// ... (keep all other existing functions like setCookie, getCookie, etc.)
-
-// Main initialization with all enhancements
-document.addEventListener('DOMContentLoaded', function() {
-    if (!config.enabled) return;
+// Helper function to get animation styles
+function getAnimationStyle(type, show = false) {
+    if (!config.animations.enabled) return '';
     
-    // First check if we should run on this domain
-    if (!isDomainAllowed()) {
-        console.log('Cookie consent banner disabled for this domain');
-        return;
+    const duration = config.animations.duration;
+    const easing = config.animations.easing;
+    
+    if (type === 'entrance') {
+        if (show) {
+            switch (config.animations.entrance) {
+                case 'fadeIn':
+                    return 'opacity: 1;';
+                case 'fadeInUp':
+                    return 'opacity: 1; transform: translateY(0);';
+                case 'slideUp':
+                    return 'transform: translateY(0);';
+                case 'slideRight':
+                    return 'transform: translateX(0);';
+                default:
+                    return 'opacity: 1; transform: translateY(0);';
+            }
+        } else {
+            switch (config.animations.entrance) {
+                case 'fadeIn':
+                    return 'opacity: 0;';
+                case 'fadeInUp':
+                    return 'opacity: 0; transform: translateY(20px);';
+                case 'slideUp':
+                    return 'transform: translateY(100px);';
+                case 'slideRight':
+                    return 'transform: translateX(100px);';
+                default:
+                    return 'opacity: 0; transform: translateY(20px);';
+            }
+        }
+    } else { // exit
+        if (show) {
+            return '';
+        } else {
+            switch (config.animations.exit) {
+                case 'fadeOut':
+                    return 'opacity: 0;';
+                case 'fadeOutDown':
+                    return 'opacity: 0; transform: translateY(20px);';
+                case 'slideDown':
+                    return 'transform: translateY(100px);';
+                case 'slideLeft':
+                    return 'transform: translateX(-100px);';
+                default:
+                    return 'opacity: 0; transform: translateY(20px);';
+            }
+        }
     }
+}
+
+// Helper function to darken a color
+function darkenColor(color, percent) {
+    // ... implementation ...
+}
+
+// Helper function to lighten a color
+function lightenColor(color, percent) {
+    // ... implementation ...
+}
+
+// Helper function to convert hex to rgba
+function hexToRgba(hex, alpha) {
+    // ... implementation ...
+}
+
+// ... [Rest of the implementation functions] ...
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Detect color scheme
+    detectColorScheme();
     
     // Load analytics data
     if (config.analytics.enabled) {
         loadAnalyticsData();
     }
     
-    // Check for stored color scheme preference
-    const storedScheme = getCookie('color_scheme');
-    if (storedScheme && config.darkMode.enabled) {
-        currentColorScheme = storedScheme;
+    // Check domain restrictions
+    if (!isDomainAllowed()) {
+        console.log('Cookie consent banner disabled for this domain');
+        return;
     }
     
-    // Get geo data from dataLayer or detect
+    // Get geo data
     let geoData = {};
     if (window.dataLayer && window.dataLayer.length > 0) {
         const geoItem = window.dataLayer.find(item => item.country || item.region || item.city);
@@ -1216,39 +1131,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Detect language
     const detectedLanguage = detectUserLanguage(geoData);
     
+    // Scan and categorize cookies
     const detectedCookies = scanAndCategorizeCookies();
-    if (detectedCookies.uncategorized.length > 0) {
-        console.log('Uncategorized cookies found:', detectedCookies.uncategorized);
-        // Try to automatically categorize unknown cookies
-        autoCategorizeCookies(detectedCookies.uncategorized).forEach(cookie => {
-            const category = determineCookieCategory(cookie.name);
-            if (category && category !== 'uncategorized') {
-                detectedCookies[category].push(cookie);
-                detectedCookies.uncategorized = detectedCookies.uncategorized.filter(c => c.name !== cookie.name);
-            }
-        });
-    }
     
-    generateConsentHTML(detectedCookies, detectedLanguage);
+    // Inject HTML
+    injectConsentHTML(detectedCookies, detectedLanguage);
     initializeCookieConsent(detectedCookies, detectedLanguage);
     
-    if (getCookie('cookie_consent')) {
-        showFloatingButton();
-    }
+    // Apply color scheme
+    applyColorScheme();
     
-    // Track marketing parameters
-    trackMarketingParameters();
+    // Set up dark mode toggle
+    document.getElementById('darkModeToggle')?.addEventListener('click', toggleDarkMode);
     
-    // Enhanced periodic cookie scan with validation
-    setInterval(() => {
-        const newCookies = scanAndCategorizeCookies();
-        if (JSON.stringify(newCookies) !== JSON.stringify(detectedCookies)) {
-            updateCookieTables(newCookies);
-        }
-    }, 30000); // Scan every 30 seconds
-    
-    // Handle scroll-based acceptance
-    if (config.behavior.acceptOnScroll) {
-        window.addEventListener('scroll', handleScrollAcceptance);
+    // Delay banner if configured
+    if (config.bannerDelay > 0) {
+        setTimeout(() => {
+            if (!getCookie('cookie_consent')) {
+                showCookieBanner();
+            }
+        }, config.bannerDelay * 1000);
     }
 });
+
+// ... [All other existing functions] ...
