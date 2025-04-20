@@ -20,7 +20,7 @@ const config = {
     autoDetectColorScheme: true, // Automatically detect user's preferred color scheme
     
     // Banner Position and Appearance
-    bannerPosition: 'right', // 'left', 'right', or 'center'
+    bannerPosition: 'left', // 'left', 'right', or 'center'
     bannerWidth: 440, // Width in pixels
     bannerHeight: 'auto', // 'auto' or specific height in pixels
     bannerBorderRadius: 12, // Border radius in pixels
